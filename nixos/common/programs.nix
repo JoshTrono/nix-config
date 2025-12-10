@@ -1,0 +1,89 @@
+{pkgs,...}:
+{
+ environment.systemPackages = with pkgs; [
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
+  git
+  nix-init
+  discord
+  vscodium
+  gnome-disk-utility
+  direnv
+  uv
+  faugus-launcher
+  mangohud
+  winetricks
+  wineWowPackages.stable
+  unstable.jetbrains.rider
+  android-tools
+  android-studio
+  google-chrome
+  distrobox
+  nixfmt
+
+  rocmPackages.rocm-core
+
+  spice-gtk
+
+
+  #cosmic
+  #cosmic-ext-tweaks
+  #cosmic-ext-applet-caffeine
+  #cosmic-ext-applet-external-monitor-brightness
+
+#gnome
+    # gnomeExtensions.tiling-assistant
+    # gnomeExtensions.dash-to-dock
+    # gnomeExtensions.dash-to-panel
+    # gnomeExtensions.arc-menu
+    # gnomeExtensions.user-themes
+    # gnomeExtensions.blur-my-shell
+    # gnomeExtensions.appindicator
+
+    # dracula-theme
+    # yaru-theme
+    # dconf-editor
+    # gnome-tweaks
+
+    gearlever
+
+  ];
+nixpkgs.config.google-chrome.commandLineArgs = [
+      "--disable-features=GlobalShortcutsPortal"
+  ];
+  #networking.firewall.enable = true;
+  #security.apparmor.enable = true;
+  #services.mullvad-vpn.enable = true;
+  #services.mullvad-vpn.package = pkgs.mullvad-vpn;
+
+programs.appimage = {
+  enable = true;
+  binfmt = true;
+};
+
+services.flatpak.packages = [
+    #{ appId = "com.brave.Browser"; origin = "flathub";  }
+    "com.obsproject.Studio"
+    "io.gpt4all.gpt4all"
+  ];
+
+services.flatpak.enable = true;
+
+
+      programs.firefox.enable = true;
+      programs.seahorse.enable = true;
+      programs.ladybird.enable = true;
+
+      programs.nix-ld.enable = true;
+programs.nix-ld.libraries = with pkgs; [
+  stdenv.cc.cc.lib
+  zlib
+  libz
+  python312Packages.zstd
+  zstd
+  libGL
+  glib
+  glibc
+  # Add other common libs here if needed
+];
+}
