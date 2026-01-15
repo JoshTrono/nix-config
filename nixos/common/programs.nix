@@ -7,23 +7,17 @@
   nix-init
   discord
   vscodium
-  gnome-disk-utility
   direnv
-  uv
-  faugus-launcher
+  heroic
   mangohud
   winetricks
   wineWowPackages.stable
-  unstable.jetbrains.rider
+  jetbrains.rider
   android-tools
   android-studio
-  google-chrome
   distrobox
   nixfmt
 
-  rocmPackages.rocm-core
-
-  spice-gtk
 
 
   #cosmic
@@ -48,9 +42,7 @@
     gearlever
 
   ];
-nixpkgs.config.google-chrome.commandLineArgs = [
-      "--disable-features=GlobalShortcutsPortal"
-  ];
+
   #networking.firewall.enable = true;
   #security.apparmor.enable = true;
   #services.mullvad-vpn.enable = true;
@@ -71,8 +63,7 @@ services.flatpak.enable = true;
 
 
       programs.firefox.enable = true;
-      programs.seahorse.enable = true;
-      programs.ladybird.enable = true;
+      #programs.ladybird.enable = true;
 
       programs.nix-ld.enable = true;
 programs.nix-ld.libraries = with pkgs; [

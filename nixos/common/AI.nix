@@ -1,8 +1,11 @@
 {pkgs,...}:
 {
-  environment.systemPackages = [
-      (pkgs.ollama.override {
-        acceleration = "rocm";
-      })
-    ];
+services.ollama = {
+  enable = true;
+  acceleration = "rocm";
+};
+services.open-webui = {
+  enable = true;
+  port = 3000;
+};
 }
