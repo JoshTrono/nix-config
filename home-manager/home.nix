@@ -19,6 +19,7 @@
     # ./nvim.nix
     # ./gnome.nix
     ./dotnet.nix
+    ./common.nix
   ];
 
   nixpkgs = {
@@ -65,6 +66,7 @@ programs.git = {
       userEmail = "Josh.Trono@gmail.com";
     #};
   };
+
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

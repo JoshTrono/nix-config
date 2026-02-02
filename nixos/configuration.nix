@@ -71,7 +71,7 @@
     # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  #boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.unstable.linuxPackages_latest;
 
   time.timeZone = "America/New_York";
 
@@ -82,11 +82,7 @@
 
 
   users.users = {
-    # FIXME: Replace with your username
     joshua = {
-      # TODO: You can set an initial password for your user.
-      # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
-      # Be sure to change it (using passwd) after rebooting!
       initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
@@ -120,6 +116,11 @@
 
   #services.displayManager.cosmic-greeter.enable = true;
   #services.desktopManager.cosmic.enable = true;
+
+  hardware.graphics = {
+  enable = true;
+  enable32Bit = true;
+};
 
 
   hardware.bluetooth = {

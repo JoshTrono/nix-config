@@ -41,7 +41,6 @@ let
       combinePackages [
         #(sdk_10_0.overrideAttrs sdkOverride)
         (sdk_9_0.overrideAttrs sdkOverride)
-        (sdk_8_0.overrideAttrs sdkOverride)
       ]
     );
 
