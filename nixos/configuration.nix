@@ -71,15 +71,15 @@
     # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.unstable.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   time.timeZone = "America/New_York";
 
-  hardware.framework.enableKmod = false;
+  #hardware.framework.enableKmod = false;
 
   networking.hostName = "Zeus";
   networking.networkmanager.enable = true;
-
+  zramSwap.enable = true;
 
   users.users = {
     joshua = {

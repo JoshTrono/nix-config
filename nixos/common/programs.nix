@@ -10,10 +10,7 @@
   heroic
   mangohud
   winetricks
-  wineWowPackages.stable
-  jetbrains.rider
-  android-tools
-  android-studio
+  mullvadvpn-custom
   distrobox
   nixfmt
 

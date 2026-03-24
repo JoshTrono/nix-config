@@ -1,61 +1,24 @@
-{
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, config, ... }:
+
 let
-
-  script = ''
-    echo test
-    ls "$out"
-    for i in $out/share/dotnet/sdk/*
-    do
-      i=$(basename $i)
-      length=$(printf "%s" "$i" | wc -c)
-      substring=$(printf "%s" "$i" | cut -c 1-$(expr $length - 2))
-      i="$substring""00"
-
-      echo $i
-
-      mkdir -p $out/share/dotnet/metadata/workloads/''${i/-*}
-      touch $out/share/dotnet/metadata/workloads/''${i/-*}/userlocal
-    done
-  '';
-
-  sdkOverride = (
-    finalAttrs: previousAttrs: {
-      src = (
-        previousAttrs.src.overrideAttrs (
-          finalAttrs: previousAttrs: {
-
-            postBuild = (previousAttrs.postBuild or '''') + script;
-          }
-        )
-      );
-    }
-  );
   dotnet-full =
-    with pkgs;
-    (
-      with dotnetCorePackages;
-      combinePackages [
-        #(sdk_10_0.overrideAttrs sdkOverride)
-        (sdk_9_0.overrideAttrs sdkOverride)
-      ]
-    );
-
+    pkgs.dotnetCorePackages.combinePackages [
+      pkgs.dotnetCorePackages.sdk_10_0
+      pkgs.dotnetCorePackages.sdk_9_0
+    ];
 in
 {
   home.packages = [
     dotnet-full
   ];
 
-  home = {
-    sessionPath = [ "${config.home.homeDirectory}/.dotnet/tools/" ];
-    sessionVariables = {
-      DOTNET_ROOT = "${dotnet-full}/share/dotnet";
-      DOTNET_PATH = "${dotnet-full}/bin/dotnet";
-    };
+  home.sessionVariables = {
+    DOTNET_ROOT = "${dotnet-full}/share/dotnet";
+    DOTNET_CLI_TELEMETRY_OPTOUT = "1";
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1";
   };
 
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.dotnet/tools"
+  ];
 }

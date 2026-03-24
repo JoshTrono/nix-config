@@ -2,14 +2,14 @@
 {
 services.ollama = {
   enable = true;
-  package = pkgs.unstable.ollama-rocm;
+  package = pkgs.ollama-rocm;
   loadModels = [
-    "qwen3:4b"
+    "gemma3"
     
   ];
 };
 services.open-webui = {
-  package = pkgs.unstable.open-webui;
+  package = pkgs.open-webui;
   enable = true;
   port = 3000;
 };

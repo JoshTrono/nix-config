@@ -47,6 +47,13 @@
     };
   };
 
+  home.packages = with pkgs; [
+      jetbrains.rider
+  android-tools
+  android-studio
+  ];
+
+
   # TODO: Set your username
   home = {
     username = "joshua";
