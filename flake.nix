@@ -42,6 +42,16 @@
               
             ];
           };
+          server = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs; };
+            modules = [
+              nix-flatpak.nixosModules.nix-flatpak
+              nixos-hardware.nixosModules.framework-16-amd-ai-300-series
+              ./nixos/server/configuration.nix
+              
+            ];
+          };
         };
 
         homeConfigurations = {

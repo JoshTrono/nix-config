@@ -10,7 +10,6 @@
   heroic
   mangohud
   winetricks
-  mullvadvpn-custom
   distrobox
   nixfmt
 

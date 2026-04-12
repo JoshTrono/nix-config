@@ -52,7 +52,7 @@
   android-tools
   android-studio
   ];
-
+services.ssh-agent.enable = true;
 
   # TODO: Set your username
   home = {
