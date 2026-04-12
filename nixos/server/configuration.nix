@@ -96,7 +96,12 @@
     git
     vim
   ];
-
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/joshua/nix-config"; # sets NH_OS_FLAKE variable for you
+  };
   # Reduce unnecessary services
   documentation.enable = false;
   services.printing.enable = false;
