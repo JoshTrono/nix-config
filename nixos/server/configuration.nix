@@ -109,7 +109,6 @@
   # Reduce unnecessary services
   documentation.enable = false;
   services.printing.enable = false;
-  sound.enable = false;
   hardware.pulseaudio.enable = false;
 
   # Timezone (set yours)
