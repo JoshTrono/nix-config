@@ -70,11 +70,11 @@
       AllowAgentForwarding = "no";
     };
   };
-    services.endlessh = {
-    enable = true;
-    port = 22;
-    openFirewall = true;
-  };
+  #   services.endlessh = {
+  #   enable = true;
+  #   port = 22;
+  #   openFirewall = true;
+  # };
 
   # Your user
   users.users.joshua = {
