@@ -12,7 +12,7 @@
   winetricks
   distrobox
   nixfmt
-
+  nixd
 
 
   #cosmic

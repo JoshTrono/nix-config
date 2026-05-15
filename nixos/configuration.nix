@@ -50,10 +50,14 @@
     };
   };
 
+
+
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
+    package = pkgs.lixPackageSets.stable.lix;
     settings = {
+
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
       # Opinionated: disable global registry
@@ -76,7 +80,6 @@
   time.timeZone = "America/New_York";
 
   #hardware.framework.enableKmod = false;
-
   networking.hostName = "Zeus";
   networking.networkmanager.enable = true;
   zramSwap.enable = true;
@@ -107,8 +110,8 @@
   };
 
   # Enable the GNOME Desktop Environment.
-  #services.displayManager.gdm.enable = true;
-  #services.desktopManager.gnome.enable = true;
+  # services.displayManager.gdm.enable = true;
+  # services.desktopManager.gnome.enable = true;
   
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
