@@ -6,7 +6,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/nixos):
@@ -50,29 +51,29 @@
     };
   };
 
+  nix =
+    let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in
+    {
+      package = pkgs.lixPackageSets.stable.lix;
+      settings = {
 
+        # Enable flakes and new 'nix' command
+        experimental-features = "nix-command flakes";
+        # Opinionated: disable global registry
+        flake-registry = "";
+        # Workaround for https://github.com/NixOS/nix/issues/9574
+        nix-path = config.nix.nixPath;
+      };
+      # Opinionated: disable channels
+      channel.enable = false;
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    package = pkgs.lixPackageSets.stable.lix;
-    settings = {
-
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      # Opinionated: disable global registry
-      flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
     };
-    # Opinionated: disable channels
-    channel.enable = false;
-
-    # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-  };
-    # Bootloader.
+  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -92,7 +93,10 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["wheel" "networkmanager"];
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+      ];
     };
   };
 
@@ -112,42 +116,49 @@
   # Enable the GNOME Desktop Environment.
   # services.displayManager.gdm.enable = true;
   # services.desktopManager.gnome.enable = true;
-  
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.desktopManager.plasma6.enable = true;
 
-  #services.displayManager.cosmic-greeter.enable = true;
-  #services.desktopManager.cosmic.enable = true;
+  # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
+  # services.desktopManager.plasma6.enable = true;
+
+  #Cosmic
+  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+  programs.firefox.preferences = {
+    # disable libadwaita theming for Firefox
+    "widget.gtk.libadwaita-colors.enabled" = false;
+  };
+
+
+
 
   hardware.graphics = {
-  enable = true;
-  enable32Bit = true;
-};
-
+    enable = true;
+    enable32Bit = true;
+  };
 
   hardware.bluetooth = {
-  enable = true;
-  powerOnBoot = true;
-  settings = {
-    General = {
-      # Shows battery charge of connected devices on supported
-      # Bluetooth adapters. Defaults to 'false'.
-      Experimental = true;
-      # When enabled other devices can connect faster to us, however
-      # the tradeoff is increased power consumption. Defaults to
-      # 'false'.
-      FastConnectable = true;
-    };
-    Policy = {
-      # Enable all controllers when they are found. This includes
-      # adapters present on start as well as adapters that are plugged
-      # in later on. Defaults to 'true'.
-      AutoEnable = true;
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        # Shows battery charge of connected devices on supported
+        # Bluetooth adapters. Defaults to 'false'.
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        # Enable all controllers when they are found. This includes
+        # adapters present on start as well as adapters that are plugged
+        # in later on. Defaults to 'true'.
+        AutoEnable = true;
+      };
     };
   };
-};
-
 
   services.displayManager.autoLogin = {
     enable = true;
@@ -184,9 +195,6 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/home/joshua/nix-config"; # sets NH_OS_FLAKE variable for you
   };
-
-
-
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

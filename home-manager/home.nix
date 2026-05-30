@@ -6,7 +6,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -18,7 +19,7 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     #./gnome.nix
-    ./dotnet.nix
+    #./dotnet.nix
     ./common.nix
   ];
 
@@ -48,11 +49,9 @@
   };
 
   home.packages = with pkgs; [
-      jetbrains.rider
-  android-tools
-  android-studio
+
   ];
-services.ssh-agent.enable = true;
+  services.ssh-agent.enable = true;
 
   # TODO: Set your username
   home = {
@@ -66,14 +65,13 @@ services.ssh-agent.enable = true;
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-programs.git = {
+  programs.git = {
     enable = true;
-    #settings.user = { 
-      userName = "Joshua Trono";
-      userEmail = "Josh.Trono@gmail.com";
+    #settings.user = {
+    userName = "Joshua Trono";
+    userEmail = "Josh.Trono@gmail.com";
     #};
   };
-
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
