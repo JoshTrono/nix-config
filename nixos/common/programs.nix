@@ -12,18 +12,15 @@
     distrobox
     nixfmt
     nixd
-    (lutris.override {
-      extraLibraries = pkgs: [
-        # List library dependencies here
-      ];
-      extraPkgs = pkgs: [
-        # List package dependencies here
-      ];
+    brave
+    unstable.grayjay
+    (bottles.override {
+      removeWarningPopup = true;
     })
 
     #cosmic
-    cosmic-ext-tweaks
-    seahorse
+    # cosmic-ext-tweaks
+    # seahorse
     #cosmic-ext-applet-caffeine
     #cosmic-ext-applet-external-monitor-brightness
 

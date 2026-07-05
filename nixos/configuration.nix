@@ -76,7 +76,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
 
   time.timeZone = "America/New_York";
 
@@ -117,18 +117,18 @@
   # services.displayManager.gdm.enable = true;
   # services.desktopManager.gnome.enable = true;
 
-  # services.displayManager.sddm.enable = true;
-  # services.displayManager.sddm.wayland.enable = true;
-  # services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   #Cosmic
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
-  programs.firefox.preferences = {
-    # disable libadwaita theming for Firefox
-    "widget.gtk.libadwaita-colors.enabled" = false;
-  };
+  # services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+  # programs.firefox.preferences = {
+  #   # disable libadwaita theming for Firefox
+  #   "widget.gtk.libadwaita-colors.enabled" = false;
+  # };
 
 
 

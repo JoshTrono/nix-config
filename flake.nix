@@ -9,11 +9,21 @@
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    nix-amd-ai.url = "github:noamsto/nix-amd-ai";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, nix-flatpak, flake-parts, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      nixos-hardware,
+      nix-flatpak,
+      flake-parts,
+      nix-amd-ai,
+      ...
+    }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-
 
       # perSystem = { pkgs, system, ... }: {
       #   packages = import ./pkgs pkgs;
@@ -23,7 +33,7 @@
         "x86_64-linux"
       ];
       imports = [
-        
+
       ];
 
       flake = {
@@ -36,10 +46,11 @@
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
+              nix-amd-ai.nixosModules.default
               nix-flatpak.nixosModules.nix-flatpak
               nixos-hardware.nixosModules.framework-16-amd-ai-300-series
               ./nixos/configuration.nix
-              
+
             ];
           };
           server = nixpkgs.lib.nixosSystem {
@@ -49,7 +60,7 @@
               nix-flatpak.nixosModules.nix-flatpak
               nixos-hardware.nixosModules.framework-16-amd-ai-300-series
               ./nixos/server/configuration.nix
-              
+
             ];
           };
         };
