@@ -19,7 +19,7 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     #./gnome.nix
-    #./dotnet.nix
+    ./dotnet.nix
     ./common.nix
   ];
 
@@ -66,10 +66,12 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git = {
+    settings.user = {
+      name = "Joshua Trono";
+      email = "Josh.Trono@gmail.com";
+    };
     enable = true;
     #settings.user = {
-    userName = "Joshua Trono";
-    userEmail = "Josh.Trono@gmail.com";
     #};
   };
 

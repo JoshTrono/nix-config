@@ -12,11 +12,14 @@
     distrobox
     nixfmt
     nixd
-    brave
+    heroic
     unstable.grayjay
     (bottles.override {
       removeWarningPopup = true;
     })
+
+    opencode
+    opencode-desktop
 
     #cosmic
     # cosmic-ext-tweaks

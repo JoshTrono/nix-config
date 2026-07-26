@@ -9,6 +9,8 @@ in
 {
   home.packages = [
     dotnet-full
+    pkgs.jetbrains.rider
+    pkgs.android-studio
   ];
 
   home.sessionVariables = {
